@@ -28,9 +28,11 @@ export default class AuthenticateUserService {
     if (!passwordMatched)
       throw new Error('Incorrect email/password combination.');
 
-    const token = sign({}, authConfig.secret, {
+    const { secret, expiresIn } = authConfig.jwt;
+
+    const token = sign({}, secret, {
       subject: user.id,
-      expiresIn: authConfig.expiresIn,
+      expiresIn,
     });
 
     return { user, token };
