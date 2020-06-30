@@ -24,6 +24,7 @@
     "no-console": "off",
     "class-methods-use-this": "off",
     "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
+    "no-useless-constructor": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/interface-name-prefix": [
       "error",
