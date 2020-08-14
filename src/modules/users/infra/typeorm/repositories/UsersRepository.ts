@@ -1,8 +1,10 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, Not } from 'typeorm';
 
 import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import IFindAllProvidersDTO from '@modules/appointments/dtos/IFindAllProviderDTO';
+
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import User from '../entities/User';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 export default class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
@@ -24,16 +26,25 @@ export default class UsersRepository implements IUsersRepository {
   }
 
   async findById(id: string): Promise<User | undefined> {
-    const user = await this.ormRepository.findOne(id);
-
-    return user;
+    return this.ormRepository.findOne(id);
   }
 
   async findByEmail(email: string): Promise<User | undefined> {
-    const user = await this.ormRepository.findOne({
+    return this.ormRepository.findOne({
       where: { email },
     });
+  }
 
-    return user;
+  async findAllProviders({
+    except_user_id,
+  }: IFindAllProvidersDTO): Promise<User[]> {
+    return except_user_id
+      ? this.ormRepository.find({
+          where: { id: Not(except_user_id) },
+          select: ['id', 'name', 'email', 'avatar'],
+        })
+      : this.ormRepository.find({
+          select: ['id', 'name', 'email', 'avatar'],
+        });
   }
 }
