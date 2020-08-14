@@ -3,9 +3,10 @@ import { isEqual } from 'date-fns';
 
 import ICreateAppointmentDTO from '@modules/appointments/dtos/ICreateAppointmentDTO';
 import IAppointmentsRepository from '@modules/appointments/repositories/IAppointmentsRepository';
-import Appointment from '../../infra/typeorm/entities/Appointment';
+import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 
-export default class AppointmentsRepository implements IAppointmentsRepository {
+export default class FakeAppointmentsRepository
+  implements IAppointmentsRepository {
   private appointments: Appointment[] = [];
 
   async create({
