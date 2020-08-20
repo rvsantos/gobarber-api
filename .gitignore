@@ -2,6 +2,8 @@
 # Created by https://www.gitignore.io/api/node
 # Edit at https://www.gitignore.io/?templates=node
 
+ormconfig.json
+
 ### Node ###
 # Logs
 logs
@@ -81,4 +83,3 @@ temp/
 !tmp/.gitkeep
 
 # End of https://www.gitignore.io/api/node
-
